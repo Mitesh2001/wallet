@@ -1,0 +1,214 @@
+fthlugkmaocaktbh
+
+For Income:
+
+Account Table:
+    user_id
+    income Category
+    Mode(Digital, Cash)
+    name(Bank Name)
+    account_number
+    type(saving,current,etc)
+    amount
+
+
+    Note: If select Cash then insert into user_id,mode and amount
+          If select digital then insert in user_id,mode,account_number,type and amount
+
+
+Category:
+    name(like salary,bonus)
+
+user_id
+Account Name
+Account Number
+Account Type
+status
+
+
+For Expenses
+
+    Category:
+        name(like food,etc)
+
+    Expense Details:
+        user_id
+        category
+        mode
+        account_id
+        amount
+        description 
+        
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#mode').on('change', function() {
+                    var val = $(this).val();
+                    if (val === "Cash") {
+                        $('#name').attr('disabled', 'disabled');
+                        $('#number').attr('disabled', 'disabled');
+                        $('#type').attr('disabled', 'disabled');
+                    } else {
+    
+                    }
+                });
+            });
+        </script>
+
+
+
+$id = Auth::user()->id;
+$user  = User::find($id);
+
+
+
+
+
+
+
+
+
+
+
+@extends('admin.admin_master')
+@section('admin')
+    <style>
+        input[type=number]::-webkit-inner-spin-button,
+        input[type=number]::-webkit-outer-spin-button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            margin: 0;
+        }
+    </style>
+    <div class="content-wrapper">
+        <div class="container-full">
+            <section class="content">
+
+                <!-- Basic Forms -->
+                <div class="box">
+                    <div class="box-header with-border">
+                        <h4 class="box-title">Add Income Details </h4>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <div class="col">
+                            <form method="POST" action="{{ route('account.store') }}">
+                                @csrf
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Income Category</h5>
+                                            <div class="controls">
+                                                <select name="category" required="" class="form-control">
+                                                    <option value="" disabled selected>Select Income Category</option>
+                                                    @foreach ($category as $data)
+                                                        <option value="{{ $data->id }}">{{ $data->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Income Mode<span class="text-danger">*</span></h5>
+                                            <div class="controls">
+                                                <select name="mode" id="mode" required="" class="form-control">
+                                                    <option value="" disabled selected>Select Income Mode</option>
+                                                    <option value="Digital">Digital</option>
+                                                    <option value="Cash">Cash</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Account Name</h5>
+                                            <div class="controls">
+                                                <input type="text" name="name" class="form-control" id="name">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Account Number</h5>
+                                            <div class="controls">
+                                                <input type="text" name="number" class="form-control" id="number">
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Account Type</h5>
+                                            <div class="controls">
+                                                <select name="type" required="" class="form-control" id="type">
+                                                    <option value="" disabled selected>Select Account Type</option>
+                                                    <option value="Saving Account">Saving Account</option>
+                                                    <option value="Current Account">Current Account</option>
+                                                    <option value="Salary Account">Salary Account</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <h5>Amount<span class="text-danger">*</span></h5>
+                                            <div class="controls">
+                                                <input type="number" name="amount" class="form-control">
+                                                @error('amount')
+                                                    <span class="text-danger">{{ $message }}</span>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="text-xs-right">
+                                    <input type="submit" class="btn btn-rounded btn-info" value="Submit">
+                                </div>
+                        </div>
+                        </form>
+
+                    </div>
+                </div>
+                <!-- /.box-body -->
+        </div>
+        <!-- /.box -->
+
+        </section>
+    </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#mode').on('change', function() {
+                var val = $(this).val();
+                if (val === "Cash") {
+                    $('#name').attr('disabled', 'disabled');
+                    $('#number').attr('disabled', 'disabled');
+                    $('#type').attr('disabled', 'disabled');
+                } else {
+
+                }
+            });
+        });
+    </script>
+@endsection
+
+
+
+
+
+
+
+
+
+
+Error:
+    AccountDetailsController -- data update validation error (comment code)
+    report mode report wrong total in pdf
